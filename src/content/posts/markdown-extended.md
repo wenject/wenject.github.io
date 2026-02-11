@@ -1,12 +1,14 @@
 ---
 title: test
-published: 2024-05-01
-updated: 2024-11-29
-description: 'Read more about Markdown features in Fuwari'
-image: ''
-tags: [Demo, Example, Markdown, Fuwari]
-category: 'Examples'
-draft: false 
+published: '2026-05-01'
+updated: '2026-02-11'
+description: Read more about Markdown features in Fuwari
+tags:
+  - Demo
+  - Example
+  - Markdown
+category: test
+draft: false
 ---
 
 ## GitHub Repository Cards
