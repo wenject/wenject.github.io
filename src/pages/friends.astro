@@ -1,0 +1,64 @@
+---
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+import fs from "node:fs";
+import path from "node:path";
+
+interface FriendLink {
+  name: string;
+  url: string;
+  description?: string;
+  avatar?: string;
+}
+
+let friends: FriendLink[] = [];
+try {
+  const friendsPath = path.join(process.cwd(), "src", "content", "friends.json");
+  if (fs.existsSync(friendsPath)) {
+    friends = JSON.parse(fs.readFileSync(friendsPath, "utf-8"));
+  }
+} catch {
+  friends = [];
+}
+---
+<MainGridLayout title="友链" description="我的朋友们">
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      <h1 class="text-2xl font-bold mb-2">🔗 友情链接</h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">我的朋友们</p>
+
+      {friends.length === 0 ? (
+        <p class="text-center text-gray-400 py-8">暂无友链</p>
+      ) : (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {friends.map((friend) => (
+            <a
+              href={friend.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-3 p-4 rounded-xl border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition-colors no-underline"
+            >
+              {friend.avatar ? (
+                <img
+                  src={friend.avatar}
+                  alt={friend.name}
+                  class="w-12 h-12 rounded-full object-cover shrink-0"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-lg shrink-0">
+                  {friend.name.charAt(0)}
+                </div>
+              )}
+              <div class="min-w-0">
+                <p class="font-medium text-sm truncate">{friend.name}</p>
+                {friend.description && (
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{friend.description}</p>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</MainGridLayout>
