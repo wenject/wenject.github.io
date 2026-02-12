@@ -134,11 +134,42 @@ const jsonLd = {
     </div>
 
 </MainGridLayout>
-<!-- 新增阅读量统计 -->
-<div class="flex flex-row items-center">
-  <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
-    <Icon name="material-symbols:visibility-outline-rounded"></Icon>
-  </div>
-  <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span> Page Views
-</div>
-<script is:inline async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- 阅读进度条 -->
+<style>
+  #reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--primary);
+    z-index: 9999;
+    transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+  }
+</style>
+<div id="reading-progress-bar"></div>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    var bar = document.getElementById('reading-progress-bar');
+    var post = document.getElementById('post-container');
+    if (!bar || !post) return;
+    function updateProgress() {
+      var rect = post.getBoundingClientRect();
+      var postTop = rect.top + window.scrollY;
+      var postHeight = rect.height;
+      var viewportHeight = window.innerHeight;
+      var scrollY = window.scrollY;
+      var progress = 0;
+      if (scrollY >= postTop + postHeight - viewportHeight) {
+        progress = 100;
+      } else if (scrollY > postTop) {
+        progress = ((scrollY - postTop) / (postHeight - viewportHeight)) * 100;
+      }
+      bar.style.width = Math.min(Math.max(progress, 0), 100) + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  });
+</script>
