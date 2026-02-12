@@ -49,11 +49,6 @@ export const navBarConfig: NavBarConfig = {
 			url: "/friends/",
 			external: false,
 		},
-		{
-			name: "wenject",
-			url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
-		},
 	],
 };
 
@@ -64,9 +59,7 @@ export const profileConfig: ProfileConfig = {
 	links: [
 		{
 			name: "Twitter",
-			icon: "fa6-brands:twitter", // Visit https://icones.js.org/ for icon codes
-			// You will need to install the corresponding icon set if it's not already included
-			// `pnpm add @iconify-json/<icon-set-name>`
+			icon: "fa6-brands:twitter",
 			url: "https://twitter.com",
 		},
 		{
@@ -77,8 +70,8 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "GitHub",
 			icon: "fa6-brands:github",
-			url: "https://github.com/saicaca/fuwari",
-		},
+			url: "https://github.com/wenject",
+		}
 	],
 };
 
