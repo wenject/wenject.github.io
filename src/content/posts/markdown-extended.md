@@ -1,7 +1,7 @@
 ---
 title: test
-published: '2026-05-01'
-updated: '2026-02-11'
+published: 2026-05-01
+updated: 2026-02-11
 description: Read more about Markdown features in Fuwari
 tags:
   - Demo
