@@ -1,11 +1,13 @@
 ---
 title: 好靶场sad_bottle wp
 published: 2026-02-14T00:00:00.000Z
+updated: 2026-03-01T00:00:00.000Z
 description: 一道ssti题目
 tags:
   - ctf
   - ssti
-category: ssti
+  - 好靶场
+category: 技术-网安
 draft: false
 ---
 # sad_bottle Writeup

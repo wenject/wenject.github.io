@@ -1,10 +1,10 @@
 ---
 title: 好靶场EDU搜索
 published: 2026-02-28T00:00:00.000Z
-updated: 2026-02-27T00:00:00.000Z
+updated: 2026-03-01T00:00:00.000Z
 tags:
   - sql注入
-category: 技术
+category: 技术-网安
 draft: false
 ---
 # 好靶场EDU搜索
