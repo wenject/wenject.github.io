@@ -2,7 +2,15 @@
 
 @layer components {
     .card-base {
-        @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition;
+        @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition-all duration-300 ease-out
+        border border-black/[0.04] dark:border-white/[0.08];
+    }
+    .card-base-glass {
+        @apply rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 ease-out
+        border border-white/20 dark:border-white/[0.08];
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
     }
     h1, h2, h3, h4, h5, h6, p, a, span, li, ul, ol, blockquote, code, pre, table, th, td, strong {
         @apply transition;
@@ -10,10 +18,48 @@
     .card-shadow {
         @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.005)]
     }
+
+    .card-hover-glow {
+        @apply relative;
+    }
+    .card-hover-glow::before {
+        content: "";
+        @apply absolute inset-0 rounded-[var(--radius-large)] opacity-0 transition-opacity duration-700 -z-10 pointer-events-none;
+        background: radial-gradient(500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            oklch(0.68 0.11 var(--hue) / 0.08), transparent 40%);
+    }
+    .card-hover-glow:hover::before {
+        @apply opacity-100;
+    }
+    .card-hover-glow:hover {
+        @apply -translate-y-0.5;
+        border-color: oklch(0.68 0.11 var(--hue) / 0.15);
+        box-shadow: 0 12px 40px oklch(0.68 0.11 var(--hue) / 0.06),
+                    0 4px 12px rgba(0,0,0,0.04);
+    }
+    :root.dark .card-hover-glow:hover {
+        border-color: oklch(0.80 0.13 var(--hue) / 0.25);
+        box-shadow: 0 12px 40px oklch(0.80 0.13 var(--hue) / 0.12),
+                    0 4px 12px rgba(0,0,0,0.15);
+    }
+
     .expand-animation {
         @apply relative before:ease-out before:transition active:bg-none hover:before:bg-[var(--btn-plain-bg-hover)] active:before:bg-[var(--btn-plain-bg-active)] z-0
         before:absolute before:rounded-[inherit] before:inset-0 before:scale-[0.85] hover:before:scale-100 before:-z-10
     }
+
+    .gradient-line {
+        height: 2px;
+        background: linear-gradient(90deg, transparent, oklch(0.70 0.14 var(--hue)), transparent);
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, var(--primary), oklch(0.80 0.12 calc(var(--hue) + 60)));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
     .link {
         @apply transition rounded-md p-1 -m-1 expand-animation;
     }
@@ -21,7 +67,7 @@
         @apply transition rounded-md p-1.5 -m-1.5 expand-animation;
     }
     .float-panel {
-        @apply top-[5.25rem] rounded-[var(--radius-large)] overflow-hidden bg-[var(--float-panel-bg)] transition shadow-xl dark:shadow-none
+        @apply top-[5.25rem] rounded-[var(--radius-large)] overflow-hidden bg-[var(--float-panel-bg)] transition shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)]
     }
     .float-panel-closed {
         @apply -translate-y-1 opacity-0 pointer-events-none
@@ -149,4 +195,65 @@
         color: var(--codeblock-bg);
     }
   }
+}
+
+/* Background decoration orbs - subtle, refined */
+.bg-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: -1;
+    animation: float-orb 25s ease-in-out infinite;
+}
+.bg-orb-1 {
+    width: 500px;
+    height: 500px;
+    background: oklch(0.75 0.08 var(--hue));
+    top: 5%;
+    right: -10%;
+    animation-delay: 0s;
+}
+.bg-orb-2 {
+    width: 400px;
+    height: 400px;
+    background: oklch(0.80 0.06 80);
+    bottom: 15%;
+    left: -10%;
+    animation-delay: -9s;
+}
+.bg-orb-3 {
+    width: 300px;
+    height: 300px;
+    background: oklch(0.78 0.07 calc(var(--hue) + 40));
+    top: 45%;
+    left: 25%;
+    animation-delay: -17s;
+}
+:root.dark .bg-orb { opacity: 0.06; }
+
+@keyframes float-orb {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(20px, -15px) scale(1.03); }
+    66% { transform: translate(-15px, 20px) scale(0.97); }
+}
+
+/* Theme scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.68 0.11 var(--hue) / 0.25) transparent;
+}
+*::-webkit-scrollbar {
+    width: 5px;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background: oklch(0.68 0.11 var(--hue) / 0.25);
+    border-radius: 3px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.68 0.11 var(--hue) / 0.4);
 }

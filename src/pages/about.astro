@@ -1,9 +1,11 @@
 ---
-
 import { getEntry, render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
+import ImageWrapper from "@components/misc/ImageWrapper.astro";
+import { Icon } from "astro-icon/components";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
+import { profileConfig } from "../config";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 const aboutPost = await getEntry("spec", "about");
@@ -13,13 +15,56 @@ if (!aboutPost) {
 }
 
 const { Content } = await render(aboutPost);
+const config = profileConfig;
 ---
 <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
-    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full ">
-            <Markdown class="mt-2">
-                <Content />
-            </Markdown>
+    <div class="flex flex-col w-full gap-4">
+        <div class="card-base overflow-hidden relative">
+            <div class="h-32 md:h-40 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/80 via-[oklch(0.78_0.08_calc(var(--hue)+40))] to-[oklch(0.85_0.06_80)]
+                            dark:from-[var(--primary)]/30 dark:via-[oklch(0.30_0.04_calc(var(--hue)+40))] dark:to-[oklch(0.25_0.03_80)]"></div>
+                <div class="absolute inset-0">
+                    <div class="absolute w-48 h-48 rounded-full bg-white/10 dark:bg-[var(--primary)]/15 -top-24 right-12 blur-2xl animate-pulse"></div>
+                    <div class="absolute w-32 h-32 rounded-full bg-white/10 dark:bg-[var(--primary)]/10 bottom-0 left-8 blur-xl" style="animation: float-orb 15s ease-in-out infinite;"></div>
+                    <div class="absolute w-20 h-20 rounded-full bg-white/15 dark:bg-[var(--primary)]/12 top-4 left-1/3 blur-lg" style="animation: float-orb 12s ease-in-out infinite reverse;"></div>
+                </div>
+            </div>
+
+            <div class="px-8 pb-8 relative">
+                <div class="flex flex-col sm:flex-row items-center sm:items-end gap-5 -mt-14 sm:-mt-12">
+                    <div class="relative shrink-0">
+                        <div class="absolute -inset-1.5 rounded-full bg-gradient-to-br from-[var(--primary)] to-[oklch(0.80_0.12_calc(var(--hue)+60))]
+                                    opacity-50 dark:opacity-40 blur-md"></div>
+                        <div class="relative w-24 h-24 rounded-full overflow-hidden border-4 border-[var(--card-bg)] shadow-xl
+                                    ring-2 ring-[var(--primary)]/20">
+                            <ImageWrapper src={config.avatar || ""} alt="Avatar" class="w-full h-full object-cover"></ImageWrapper>
+                        </div>
+                    </div>
+                    <div class="text-center sm:text-left pb-2">
+                        <h1 class="text-2xl font-bold gradient-text">{config.name}</h1>
+                        <p class="text-sm text-black/50 dark:text-white/50 mt-1">{config.bio}</p>
+                        <div class="flex items-center gap-2 mt-3 justify-center sm:justify-start">
+                            {config.links.map(link => (
+                                <a href={link.url} target="_blank" rel="me"
+                                   class="w-8 h-8 rounded-lg bg-[var(--btn-regular-bg)] flex items-center justify-center
+                                          text-[var(--btn-content)] hover:bg-[var(--primary)] hover:text-white
+                                          transition-all duration-300 hover:-translate-y-0.5">
+                                    <Icon name={link.icon} class="text-sm"></Icon>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-base overflow-hidden relative rounded-[var(--radius-large)]">
+            <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--primary)]/30 to-transparent"></div>
+            <div class="px-9 py-8">
+                <Markdown class="mt-2">
+                    <Content />
+                </Markdown>
+            </div>
         </div>
     </div>
 </MainGridLayout>

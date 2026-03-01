@@ -42,7 +42,11 @@ const coverWidth = "28%";
 
 const { remarkPluginFrontmatter } = await entry.render();
 ---
-<div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]} style={style}>
+<div class:list={["card-base card-hover-glow flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative group/card", className]} style={style}>
+    <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[var(--primary)] via-[oklch(0.80_0.12_calc(var(--hue)+40))] to-transparent
+                dark:from-[var(--primary)]/90 dark:via-[oklch(0.60_0.10_calc(var(--hue)+40))]/60 dark:to-transparent
+                hidden md:block rounded-full"></div>
+
     <div class:list={["pl-6 md:pl-9 pr-6 md:pr-2 pt-6 md:pt-7 pb-6 relative", {"w-full md:w-[calc(100%_-_52px_-_12px)]": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
         <a href={url}
            class="transition group w-full block font-bold mb-3 text-3xl text-90
@@ -56,21 +60,20 @@ const { remarkPluginFrontmatter } = await entry.render();
             <Icon class="text-[var(--primary)] text-[2rem] transition hidden md:inline absolute translate-y-0.5 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0" name="material-symbols:chevron-right-rounded"></Icon>
         </a>
 
-        <!-- metadata -->
         <PostMetadata published={published} updated={updated} tags={tags} category={category} hideTagsForMobile={true} hideUpdateDate={true} class="mb-4"></PostMetadata>
 
-        <!-- description -->
         <div class:list={["transition text-75 mb-3.5 pr-4", {"line-clamp-2 md:line-clamp-1": !description}]}>
             { description || remarkPluginFrontmatter.excerpt }
         </div>
 
-        <!-- word count and read time  -->
-        <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition">
-            <div>
+        <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 items-center transition">
+            <div class="flex items-center gap-1.5">
+                <Icon name="material-symbols:article-outline" class="text-[1rem] text-[var(--primary)]/50"></Icon>
                 {remarkPluginFrontmatter.words} {" " + i18n(remarkPluginFrontmatter.words === 1 ? I18nKey.wordCount : I18nKey.wordsCount)}
             </div>
-            <div>|</div>
-            <div>
+            <div class="w-1 h-1 rounded-full bg-black/15 dark:bg-white/15"></div>
+            <div class="flex items-center gap-1.5">
+                <Icon name="material-symbols:schedule-outline" class="text-[1rem] text-[var(--primary)]/50"></Icon>
                 {remarkPluginFrontmatter.minutes} {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
             </div>
         </div>
@@ -108,3 +111,19 @@ const { remarkPluginFrontmatter } = await entry.render();
 
 <style define:vars={{coverWidth}}>
 </style>
+<script>
+    function initCardGlow() {
+        document.querySelectorAll('.card-hover-glow').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const el = card as HTMLElement;
+                const rect = el.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                el.style.setProperty('--mouse-x', x + '%');
+                el.style.setProperty('--mouse-y', y + '%');
+            });
+        });
+    }
+    initCardGlow();
+    document.addEventListener('astro:page-load', initCardGlow);
+</script>

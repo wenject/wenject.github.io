@@ -1,15 +1,15 @@
 /* Page transition animations with Swup */
 html.is-changing .transition-swup-fade {
-    @apply transition-all duration-200
+    @apply transition-all duration-300
 }
 html.is-animating .transition-swup-fade {
     @apply opacity-0 translate-y-4
 }
 
-/* Fade-in animations for components */
+/* Fade-in-up animation */
 @keyframes fade-in-up {
     0% {
-        transform: translateY(2rem);
+        transform: translateY(1.5rem);
         opacity: 0;
     }
     100% {
@@ -18,17 +18,44 @@ html.is-animating .transition-swup-fade {
     }
 }
 
+/* Slide-in from left for sidebar */
+@keyframes slide-in-left {
+    0% {
+        transform: translateX(-1.5rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Scale-in for profile */
+@keyframes scale-in {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 /* Main components */
 .onload-animation {
     opacity: 0;
-    animation: 300ms fade-in-up;
+    animation: 450ms cubic-bezier(0.22, 1, 0.36, 1) fade-in-up;
     animation-fill-mode: forwards;
 }
 #navbar {
     animation-delay: 0ms
 }
 #sidebar {
-    animation-delay: 100ms
+    animation-delay: 100ms;
+    animation-name: slide-in-left;
+    animation-duration: 500ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 #swup-container {
     outline: none;
@@ -37,17 +64,16 @@ html.is-animating .transition-swup-fade {
     animation-delay: var(--content-delay);
 }
 .footer {
-    animation-delay: 250ms;
+    animation-delay: 350ms;
 }
 #banner-credit {
-    animation-delay: 400ms;
+    animation-delay: 500ms;
 }
 
-/* Post content */
+/* Post content stagger */
 #post-container :nth-child(1) { animation-delay: calc(var(--content-delay) + 0ms) }
-#post-container :nth-child(2) { animation-delay: calc(var(--content-delay) + 50ms) }
-#post-container :nth-child(3) { animation-delay: calc(var(--content-delay) + 100ms) }
-#post-container :nth-child(4) { animation-delay: calc(var(--content-delay) + 175ms) }
-#post-container :nth-child(5) { animation-delay: calc(var(--content-delay) + 250ms) }
-#post-container :nth-child(6) { animation-delay: calc(var(--content-delay) + 325ms) }
-
+#post-container :nth-child(2) { animation-delay: calc(var(--content-delay) + 70ms) }
+#post-container :nth-child(3) { animation-delay: calc(var(--content-delay) + 140ms) }
+#post-container :nth-child(4) { animation-delay: calc(var(--content-delay) + 210ms) }
+#post-container :nth-child(5) { animation-delay: calc(var(--content-delay) + 280ms) }
+#post-container :nth-child(6) { animation-delay: calc(var(--content-delay) + 350ms) }

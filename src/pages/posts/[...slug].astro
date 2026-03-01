@@ -135,7 +135,6 @@ const jsonLd = {
 
 </MainGridLayout>
 
-<!-- 阅读进度条 -->
 <style>
   #reading-progress-bar {
     position: fixed;
@@ -143,10 +142,11 @@ const jsonLd = {
     left: 0;
     width: 0%;
     height: 3px;
-    background: var(--primary);
+    background: linear-gradient(90deg, var(--primary), oklch(0.80 0.12 calc(var(--hue) + 60)));
     z-index: 9999;
-    transition: width 0.1s linear;
+    transition: width 0.15s ease-out;
     border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 10px oklch(0.70 0.14 var(--hue) / 0.5), 0 0 20px oklch(0.70 0.14 var(--hue) / 0.2);
   }
 </style>
 <div id="reading-progress-bar"></div>

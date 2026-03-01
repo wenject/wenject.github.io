@@ -43,6 +43,11 @@ const mainPanelTop = siteConfig.banner.enable
 
 <Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle}>
 
+<!-- Background decoration orbs -->
+<div class="bg-orb bg-orb-1" aria-hidden="true"></div>
+<div class="bg-orb bg-orb-2" aria-hidden="true"></div>
+<div class="bg-orb bg-orb-3" aria-hidden="true"></div>
+
 <!-- Navbar -->
 <slot slot="head" name="head"></slot>
 <div id="top-row" class="z-50 pointer-events-none relative transition-all duration-700 max-w-[var(--page-width)] px-0 md:px-4 mx-auto" class:list={[""]}>
@@ -57,6 +62,17 @@ const mainPanelTop = siteConfig.banner.enable
                   src={siteConfig.banner.src} position={siteConfig.banner.position}
     >
     </ImageWrapper>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--page-bg)] z-20"></div>
+    <div class="absolute inset-0 flex items-center justify-center z-30">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-white drop-shadow-lg mb-3" style="text-shadow: 0 2px 20px rgba(0,0,0,0.3);">
+                {siteConfig.title}
+            </h1>
+            <p class="text-lg md:text-xl text-white/80 drop-shadow-md" style="text-shadow: 0 1px 10px rgba(0,0,0,0.3);">
+                {siteConfig.subtitle}
+            </p>
+        </div>
+    </div>
 </div>}
 
 <!-- Main content -->

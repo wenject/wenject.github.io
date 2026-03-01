@@ -1,5 +1,6 @@
 ---
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -21,38 +22,75 @@ try {
 }
 ---
 <MainGridLayout title="友链" description="我的朋友们">
-  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-    <div class="card-base z-10 px-9 py-6 relative w-full">
-      <h1 class="text-2xl font-bold mb-2">🔗 友情链接</h1>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">我的朋友们</p>
+  <div class="flex flex-col w-full gap-4">
+    <div class="card-base z-10 px-8 py-7 relative w-full overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-[var(--primary)]/5 dark:bg-[var(--primary)]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+
+      <div class="flex items-center gap-4 mb-6 relative">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--primary)] to-[oklch(0.80_0.12_calc(var(--hue)+60))]
+                    flex items-center justify-center text-white text-xl shadow-lg shadow-[var(--primary)]/20">
+          <Icon name="material-symbols:link-rounded" class="text-2xl"></Icon>
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold gradient-text">友情链接</h1>
+          <p class="text-xs text-black/40 dark:text-white/40 mt-0.5">在这里遇见有趣的灵魂 ✨</p>
+        </div>
+      </div>
 
       {friends.length === 0 ? (
-        <p class="text-center text-gray-400 py-8">暂无友链</p>
+        <div class="text-center py-16">
+          <div class="text-4xl mb-3">🌟</div>
+          <p class="text-black/30 dark:text-white/30">暂无友链，快来成为第一个朋友吧~</p>
+        </div>
       ) : (
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {friends.map((friend) => (
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {friends.map((friend, i) => (
             <a
               href={friend.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center gap-3 p-4 rounded-xl border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition-colors no-underline"
+              class="friend-card group relative flex items-center gap-4 p-5 rounded-2xl
+                     border border-black/[0.04] dark:border-white/[0.06]
+                     bg-[var(--card-bg)]
+                     hover:-translate-y-1.5 active:scale-[0.98]
+                     transition-all duration-400 ease-out no-underline overflow-hidden"
+              style={`animation-delay: ${i * 80}ms;`}
             >
+              <div class="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/0 to-[oklch(0.80_0.12_calc(var(--hue)+60))]/0
+                          group-hover:from-[var(--primary)]/5 group-hover:to-[oklch(0.80_0.12_calc(var(--hue)+60))]/5
+                          transition-all duration-500"></div>
+              <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none friend-card-glow"></div>
+
               {friend.avatar ? (
-                <img
-                  src={friend.avatar}
-                  alt={friend.name}
-                  class="w-12 h-12 rounded-full object-cover shrink-0"
-                  loading="lazy"
-                />
+                <div class="relative shrink-0">
+                  <div class="absolute -inset-1 rounded-full bg-gradient-to-br from-[var(--primary)] to-[oklch(0.80_0.12_calc(var(--hue)+60))]
+                              opacity-0 group-hover:opacity-60 blur-md transition-all duration-500"></div>
+                  <img
+                    src={friend.avatar}
+                    alt={friend.name}
+                    class="relative w-14 h-14 rounded-full object-cover
+                           ring-2 ring-[var(--primary)]/10 group-hover:ring-[var(--primary)]/40 transition-all duration-500"
+                    loading="lazy"
+                  />
+                </div>
               ) : (
-                <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-lg shrink-0">
-                  {friend.name.charAt(0)}
+                <div class="relative shrink-0">
+                  <div class="absolute -inset-1 rounded-full bg-gradient-to-br from-[var(--primary)] to-[oklch(0.80_0.12_calc(var(--hue)+60))]
+                              opacity-0 group-hover:opacity-60 blur-md transition-all duration-500"></div>
+                  <div class="relative w-14 h-14 rounded-full bg-gradient-to-br from-[var(--btn-regular-bg)] to-[var(--btn-regular-bg-hover)]
+                              flex items-center justify-center text-lg font-bold text-[var(--primary)]
+                              ring-2 ring-[var(--primary)]/10 group-hover:ring-[var(--primary)]/40 transition-all duration-500">
+                    {friend.name.charAt(0)}
+                  </div>
                 </div>
               )}
-              <div class="min-w-0">
-                <p class="font-medium text-sm truncate">{friend.name}</p>
+              <div class="min-w-0 relative">
+                <p class="font-bold text-sm truncate text-black/80 dark:text-white/80 group-hover:text-[var(--primary)] transition-colors duration-300">
+                  {friend.name}
+                  <Icon name="material-symbols:arrow-outward-rounded" class="inline text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 ml-1 -translate-y-0.5"></Icon>
+                </p>
                 {friend.description && (
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{friend.description}</p>
+                  <p class="text-xs text-black/40 dark:text-white/40 mt-1.5 line-clamp-2 leading-relaxed">{friend.description}</p>
                 )}
               </div>
             </a>
@@ -60,5 +98,40 @@ try {
         </div>
       )}
     </div>
+
+    <div class="card-base z-10 px-8 py-6 relative w-full overflow-hidden">
+      <div class="absolute bottom-0 left-0 w-48 h-48 bg-[var(--primary)]/5 dark:bg-[var(--primary)]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
+      <div class="relative">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--primary)]/20 to-[oklch(0.80_0.12_calc(var(--hue)+60))]/20
+                      flex items-center justify-center">
+            <Icon name="material-symbols:mail-outline-rounded" class="text-[var(--primary)] text-lg"></Icon>
+          </div>
+          <h2 class="text-lg font-bold text-black/70 dark:text-white/70">申请友链</h2>
+        </div>
+        <p class="text-sm text-black/50 dark:text-white/50 leading-relaxed mb-4">
+          欢迎交换友链！请在
+          <a href="https://github.com/wenject/wenject.github.io/issues" target="_blank" rel="noopener noreferrer"
+             class="text-[var(--primary)] hover:underline font-semibold">GitHub Issues</a>
+          中新建一个 Issue，按以下格式填写：
+        </p>
+        <div class="p-5 rounded-2xl bg-[var(--btn-regular-bg)]/50 border border-black/[0.03] dark:border-white/[0.05]
+                    text-sm text-black/60 dark:text-white/60 font-mono leading-loose">
+          <div class="flex items-center gap-2"><span class="text-[var(--primary)]">📝</span> 名称：你的站点名称</div>
+          <div class="flex items-center gap-2"><span class="text-[var(--primary)]">🔗</span> 链接：https://example.com</div>
+          <div class="flex items-center gap-2"><span class="text-[var(--primary)]">💬</span> 描述：一句话介绍你的站点</div>
+          <div class="flex items-center gap-2"><span class="text-[var(--primary)]">🖼️</span> 头像：头像图片链接</div>
+        </div>
+      </div>
+    </div>
   </div>
+<style>
+    .friend-card-glow {
+        box-shadow: inset 0 0 0 1px oklch(0.70 0.14 var(--hue) / 0.3), 0 8px 32px oklch(0.70 0.14 var(--hue) / 0.1);
+        border-radius: 1rem;
+    }
+    :root.dark .friend-card-glow {
+        box-shadow: inset 0 0 0 1px oklch(0.80 0.13 var(--hue) / 0.4), 0 8px 32px oklch(0.80 0.13 var(--hue) / 0.2);
+    }
+</style>
 </MainGridLayout>
