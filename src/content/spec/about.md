@@ -1,27 +1,7 @@
-# 关于我 / About Me
+# About
+This is the demo site for [wenject](https://github.com/wenject).
 
-你好！我是 **夏叶** ，一个在数字世界中默默无闻的一片叶子。
+本人为双非院校计算机专业学生，核心研究方向为网络安全，重点深耕渗透测试与CTF攻防实战，深入探索并实践各类漏洞挖掘技术；同时，对大模型、全栈开发领域抱有浓厚兴趣，利用课余时间学习相关技术，逐步积累基础能力，不追求多领域全面精通，重点聚焦网安核心方向，兼顾兴趣领域的探索与提升。
+依托计算机专业背景，熟练掌握Web及数据库漏洞挖掘技术，可灵活搭配各类常用安全工具完成测试任务，具备一定的全栈开发基础，能独立完成简单前后端开发任务。曾参与多项攻防演练、安全培训等实践项目，积累了丰富的实战与技术分享经验；曾参与数学建模相关竞赛，仅具备基础认知，未进行深入研究。注重专业能力持续提升，持有多项网络安全相关专业认证及赛事荣誉，为技术研究与实践提供支撑。
 
-## 🛠️ 关于本站
-
-这个网站使用 **Astro** 框架构建，采用了 [Firefly](https://github.com/CuteLeaf/Firefly) 模板，Firefly 是基于 [Fuwari](https://github.com/saicaca/fuwari) 的二次开发。
-
-**Firefly** 是一款基于 Astro 框架和 Fuwari 模板开发的清新美观且现代化个人博客主题模板，专为技术爱好者和内容创作者设计。该主题融合了现代 Web 技术栈，提供了丰富的功能模块和高度可定制的界面，让您能够轻松打造出专业且美观的个人博客网站。
-
-
-**🖥️在线预览： [Firefly - Demo site](https://firefly.cuteleaf.cn/)**
-
-**📝Firefly使用文档： [https://docs-firefly.cuteleaf.cn](https://docs-firefly.cuteleaf.cn/)**
-
-**⭐Firefly开源地址：[https://github.com/CuteLeaf/Firefly](https://github.com/CuteLeaf/Firefly)** 
-
-**⭐Fuwari开源地址：[https://github.com/saicaca/fuwari](https://github.com/saicaca/fuwari)**
-
-::github{repo="CuteLeaf/Firefly"}
-
-::github{repo="saicaca/fuwari"}
-
----
-
-*感谢你的来访！希望在这里能找到对你有用的内容！*
-
+长期专注于网络安全领域的深耕，具备相对系统的知识储备与实践经验，同时持续打磨全栈开发相关技能，逐步探索大模型领域的相关技术，致力于实现核心领域精进、兴趣领域突破。欢迎行业同仁围绕CTF解题思路、渗透测试技术、全栈开发实践及大模型探索等方向交流探讨，携手共进、共同提升。
