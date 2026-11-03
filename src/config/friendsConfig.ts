@@ -28,8 +28,8 @@ export const friendsConfig: FriendLink[] = [
 		desc: "一只可爱的小南梁",
 		siteurl: "https://blog.tuyiisxp.top/",
 		tags: ["Blog"],
-		weight: 10, // 权重，数字越大排序越靠前
-		enabled: true, // 是否启用
+		weight: 10,
+		enabled: true,
 	},
 	{
 		title: "pai",
@@ -47,7 +47,7 @@ export const friendsConfig: FriendLink[] = [
 		siteurl: "https://azumisaki.github.io/",
 		tags: ["Blog"],
 		weight: 8,
-		enabled: true,
+		enabled: false,
 	},
 ];
 
