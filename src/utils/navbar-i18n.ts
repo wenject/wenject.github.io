@@ -31,6 +31,7 @@ const NAVBAR_DEFAULT_NAMES: Record<string, I18nKey> = {
 	番组计划: I18nKey.bangumi,
 	打赏: I18nKey.sponsor,
 	关于我: I18nKey.about,
+	关于: I18nKey.about,
 };
 
 export function resolveNavbarName(name: string): string {
